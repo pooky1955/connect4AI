@@ -8,6 +8,7 @@ let isTie = false
 let counter = 0
 let debugMode = false
 let end = false
+let slider
 let sclF = 0.8
 class Node {
     constructor(board, isRoot) {
@@ -379,6 +380,8 @@ let board
 function setup() {
     createCanvas(800, 600)
     frameRate(80)
+    slider = createSlider(1,20,1,1)
+    slider.position(0,100)
     board = new Board(7, 6)
 }
 function indicateColumn() {
@@ -386,6 +389,17 @@ function indicateColumn() {
     x = constrain(x, 0, 6)
     fill(255, 255, 0)
     ellipse(x * gridWidth + gridWidth / 2, 10, gridWidth * sclF, gridWidth * sclF)
+}
+
+function assignDifficulty(num){
+    let difficulties = ['baby','easy','normal','hard','very hard','super hard','veteran','impossible']
+    let index = Math.floor(num / 3)
+    if (index >= difficulties.length){
+        return 'very impossible'
+    }else {
+        return difficulties[index]
+    }
+    
 }
 function draw() {
     background(125, 120, 255)
