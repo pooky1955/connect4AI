@@ -17,14 +17,14 @@ function setup() {
     createCanvas(800, 600)
     frameRate(80)
     slider = createSlider(1, 20, 1, 1)
-    slider.position(0, 100)
+    slider.position(0, 100 * width / 800)
     board = new Board(7, 6)
 }
 function indicateColumn() {
     let x = Math.floor(mouseX / gridWidth)
     x = constrain(x, 0, 6)
     fill(255, 255, 0)
-    ellipse(x * gridWidth + gridWidth / 2, 10, gridWidth * sclF, gridWidth * sclF)
+    ellipse((x * gridWidth + gridWidth / 2) * width / 800, 10 * height / 600, gridWidth * sclF * width / 800, gridWidth * sclF * width / 800)
 }
 
 function assignDifficulty(num) {
@@ -51,9 +51,9 @@ function draw() {
 
             fill(255, 255, 0)
         }
-        textSize(50)
-        text(`${winner} has won !!!! 
-        Click anywhere to restart`, width / 2, 100)
+        textSize(20)
+        textAlign(CENTER)
+        text(`${winner} has won !!!! Click anywhere to restart`, width / 2, 100)
 
     } else if (isTie) {
         text(`It's a tie!!!!!!Click anywhere to restart`, width / 2, 100)
@@ -70,7 +70,7 @@ function draw() {
         }
 
 
-        ellipse(width - 150, 400, 100, 100)
+        ellipse(width - 150 * width / 800, 400, 100, 100)
         textSize(20)
         fill(255)
         text(` Yellow : ${yellowWin}, Red : ${redWin}`, 600, 300)
@@ -88,7 +88,8 @@ function draw() {
                     console.log(counter)
                 }
                 fill(255)
-                text('THINKING  ' + counter, width * 0.9, 100)
+                textAlign(CENTER)
+                text('Iterations left:' + counter, width * 0.8, 180)
 
             } else {
                 thinking = false
@@ -98,7 +99,7 @@ function draw() {
                 board.updateGame()
 
             }
-            textSize(50)
+            textSize(20)
 
 
 
