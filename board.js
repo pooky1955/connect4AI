@@ -38,12 +38,12 @@ class Board {
     }
     makeOneStep() {
         let moves = this.getPossibleActions()
-        let index = Math.floor(Math.random() * moves.length)
         if (moves.length == 0) {
             this.end = true
             return 0
         }
-
+        let index = Math.floor(Math.random() * moves.length)
+        this.addPiece(moves[index])
 
         if (this.checkForWin()) {
             this.end = true

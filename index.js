@@ -62,7 +62,7 @@ function draw() {
         if (board.redTurn) {
             fill(255, 0, 0)
             if (!thinking) {
-                think(8000)
+                think(slider.value() * 1000)
             }
         } else {
             fill(255, 255, 0)
@@ -105,6 +105,7 @@ function draw() {
 
         }
     }
+    text(assignDifficulty(slider.value()), slider.x + slider.width, slider.y)
 }
 
 function think(num) {
