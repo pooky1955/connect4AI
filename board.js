@@ -104,7 +104,11 @@ class Board {
         }
     }
     handleClicks() {
-        let column = Math.floor(mouseX / (gridWidth))
+        if (!mouseInCanvas()){
+            return false
+        }
+        let scaledMouseX = processMouseCoords(mouseX)
+        let column = Math.floor(scaledMouseX / (gridWidth))
 
         if (column < this.w) {
             let slot = this.addPiece(column)
@@ -121,12 +125,17 @@ class Board {
         }
 
     }
+    outOfBounds(posX,posY,dir){
+        return (posX + dir.x > this.w - 1 || posY + dir.y > this.h - 1 || posX + dir.x < 0 || posY + dir.y < 0)
+    }
     check(currStreak, posX, posY, dir, value) {
-        if (posX + dir.x > this.w - 1 || posY + dir.y > this.h - 1 || posX + dir.x < 0 || posY + dir.y < 0) {
+        if (this.outOfBounds(posX,posY,dir)) {
             return currStreak
         }
-        if (this.data[posX + dir.x][posY + dir.y] == value) {
-            let counter = this.check(currStreak + 1, posX + dir.x, posY + dir.y, dir, value)
+        let newPosX = posX + dir.x
+        let newPosY = posY + dir.y
+        if (this.data[newPosX][newPosY] === value) {
+            let counter = this.check(currStreak + 1, newPosX, newPosY, dir, value)
             return counter
         } else {
             return currStreak
@@ -196,17 +205,16 @@ class Board {
     }
     display() {
         push()
-        translate(0, 100)
+        translate(0,100)
 
         for (let i = 0; i < this.w; i++) {
             for (let j = 0; j < this.h; j++) {
-                fill(255, 255, 255)
                 if (this.data[i][j] == -1) {
-                    fill(255, 255, 0)
+                    fill(255, 240, 0)
                 } else if (this.data[i][j] == 1) {
                     fill(255, 0, 0)
                 } else {
-                    fill(51)
+                    fill(19,72,162)
                 }
                 let pos = createVector(i, j)
                 pos.mult(gridWidth)
