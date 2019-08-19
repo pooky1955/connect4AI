@@ -1,6 +1,8 @@
 # connect4AI
 An AI for connect 4 using Monte Carlo Tree Search
 
+Demo [here](https://pooky1955.github.io/connect4AI)
+
 ## How it works
 Let's suppose the AI always plays red, and the player always play yellow
 
