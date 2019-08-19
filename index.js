@@ -18,6 +18,7 @@ let isPressed = false
 function setup() {
     let size = Math.min(window.innerHeight, window.innerWidth)
     canvas = createCanvas(size, size * 0.75)
+    canvas.parent("canvas-container")
     frameRate(80)
     slider = createSlider(1, 50, 1, 2)
     slider.parent("slider-container")
@@ -197,6 +198,11 @@ function within(value, min, max) {
 function mouseInCanvas() {
     return (within(mouseX, 0, width) && within(mouseY, 0, height))
 }
+function windowResized() {
+    let size = Math.min(window.innerHeight, window.innerWidth)
+    resizeCanvas(size, size * 0.75)
+    canvasScaleFactor = width / 800
+}
 function mousePressed() {
     console.log(mouseX, mouseY)
 
@@ -210,8 +216,8 @@ function mousePressed() {
         } else {
             handleMouseForEnd()
         }
-        isPressed = true
     }
+    isPressed = true
 }
 function mouseReleased() {
     isPressed = false

@@ -1,5 +1,6 @@
 class Node {
     constructor(board, isRoot) {
+        
         this.winCount = 0
         this.count = 0
         this.board = board
