@@ -21,7 +21,7 @@ The "goodness" would then be : winCount / totalCount. This is called the **avera
 
 Since the simulation returned 1, then winCount = 1, totalCount = 1.
 Each time we simulate a game from a node, we must always update the **counts of the parent nodes**
-so we would update  its parent ( the root node ) with newWinCount = winCount + simulationResult, and newTotalCount = totalCount + 1
+so we would **update  its parent** ( the root node ) with newWinCount = winCount + simulationResult, and newTotalCount = totalCount + 1
 
 6. Repeat this for all possible moves (2 to 5)
 
@@ -39,21 +39,27 @@ What the heck is ln(parentTotalCount)/totalCount???
 To get an intuitive sense of that math jargon, think of it that way
 + If the node has been visited a lot of times compared to the other nodes, (ln(parentTotalCount) / totalCount) will be small
 + However, if the node has not been visited a lot of times compared to the other nodes, (ln(parentTotalCount) / totalCount) will be big and finally, the AI will choose to pick this move
-Basically, the uncertainty is just used to balance between exploring potentially better moves and sticking to the current best move
++ Basically, the uncertainty is just used to **balance between exploring potentially better moves and sticking to the current best move**
 9. Repeat steps 1 to 8 by treating the visited node as the new "root" node
 
 Differences when the root node is yellow
 ---
-However, the new root node is yellow, and that's why there will be a difference in how the AI selects which move would benefit yellow the most. Since choosing the max of the scores would be optimal for red, you may think choosing the min of the scores would be the worst for red, which means , the best for yellow. Well almost. Let me show you.
+When the root node is yellow, there will be a difference in how the AI selects which move. Since choosing the max of the scores would be optimal for red, you may think choosing the min of the scores would be the worst for red, which means , the best for yellow. Well almost. Let me show you.
 + If there is a node that has been visited a lot of times compared to the others, ln(parentTotalCount)/totalCount will be small, meaning if you take the min, it will be easier for that node
 + If there is a node that has rarely been visited, ln(parentTotalCount)/totalCount will be huge, meaning it will never take that move
 + This would be catastrophic!! That just means yellow will only repeatedly visit the same node over and over again while rarely exploring other moves that would benefit yellow
 That is why you have to substract the uncertainty instead of adding it
 If you substract the uncertainty:
-+ If there is a node that has been visited a lot, ln(parentTotalCount)/totalCount will be small, meaning it won't help much during the selection
-+ However if there is a node that has rarely been visited, ln(parentTotalCount)/totalCount will be huge, meaning yellow would certainly select that node
++ If there is a node that has been visited a lot, ln(parentTotalCount)/totalCount will be small, meaning it will not help the node get selected
++ However if there is a node that has rarely been visited, ln(parentTotalCount)/totalCount will be huge, meaning **yellow would certainly select that node**
 
 GREAT!That works!
+
+Advantages of MCTS
+---
++ MCTS can always provide an answer at any given time
++ MCTS grows an **asymmetric tree** that is more focused in potential outcomes
++ MCTS does not need to have a static evaluation function (like minimax) 
 
 Summary
 ---
